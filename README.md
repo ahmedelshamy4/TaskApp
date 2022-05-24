@@ -14,7 +14,11 @@ A simple small notepad allowing creating and editing text Notes using realtimeFi
 ✨ Plugins and Concepts :
   
 
-https://user-images.githubusercontent.com/26741217/170118703-2a042fd8-a2ce-4a00-b0e2-a9ea11f9b30f.mp4
+
+
+https://user-images.githubusercontent.com/26741217/170120593-b9e15011-134d-48b2-b0ae-3d9ae6083ac6.mp4
+
+
 
 
 </p>
