@@ -2,14 +2,13 @@ class UserModel {
   late String uid;
   late String name;
   late String email;
-  late String profileImage;
+
   late int dt;
 
   UserModel({
     required this.uid,
     required this.name,
     required this.email,
-    required this.profileImage,
     required this.dt,
   });
 
@@ -18,7 +17,6 @@ class UserModel {
       uid: map['uid'],
       name: map['name'],
       email: map['email'],
-      profileImage: map['profileImage'],
       dt: map['dt'],
     );
   }

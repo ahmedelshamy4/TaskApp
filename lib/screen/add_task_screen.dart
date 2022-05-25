@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:task_app/widgets/color.dart';
 
 import '../widgets/toast.dart';
 
@@ -35,6 +36,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               maxLines: 10,
               decoration: const InputDecoration(
                 labelText: ' Task Name ',
+                hintText: 'Enter Your Task',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -86,9 +88,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 margin: const EdgeInsets.symmetric(horizontal: 50.0),
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: mainColor,
                     border: Border.all(
-                        color: Colors.blue, // Set border color
+                        color: mainColor, // Set border color
                         width: 3.0), // Set border width
                     borderRadius: const BorderRadius.all(
                         Radius.circular(10.0)), // Set rounded corner radius

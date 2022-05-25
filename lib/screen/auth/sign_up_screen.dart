@@ -3,8 +3,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:task_app/screen/auth/validaror_auth.dart';
 
 import '../../widgets/CurvedClipper.dart';
+import '../../widgets/color.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/toast.dart';
 import 'login_screen.dart';
 
@@ -18,12 +21,11 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool passwordObscured = true;
   bool confirmPassObscured = true;
-
-  final fullNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final retypePasswordController = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
+  final registerNameControl = TextEditingController();
+  final registerEmailControl = TextEditingController();
+  final registerPasswordControl = TextEditingController();
+  final registerConfirmPasswordControl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,160 +53,110 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 5.0,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                ),
-                child: TextField(
-                  controller: fullNameController,
-                  decoration: const InputDecoration(
-                    hintText: 'FullName',
-                    prefixIcon: Icon(
-                      Icons.account_box_outlined,
-                    ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 15.0),
-                    fillColor: Colors.white,
-                    filled: true,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 20,
-                ),
-                child: TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                    prefixIcon: Icon(
-                      Icons.email,
-                    ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 15.0),
-                    fillColor: Colors.white,
-                    filled: true,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                ),
-                child: TextField(
-                  controller: passwordController,
-                  obscureText: passwordObscured,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        passwordObscured
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+              Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 5.0),
+                      CustomTextFormField(
+                        controller: registerNameControl,
+                        textInputAction: TextInputAction.next,
+                        textHint: 'Enter your Name',
+                        roundedRectangleBorder: 10.0,
+                        backgroundColor: const Color(0xfff2f2f2),
+                        prefix: const Icon(
+                          Icons.account_circle_outlined,
+                          color: mainColor,
+                        ),
+                        validator: (value) =>
+                            (value!.isEmpty) ? 'Please Enter Your Name' : null,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          passwordObscured = !passwordObscured;
-                        });
-                      },
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
-                    fillColor: Colors.white,
-                    filled: true,
+                      const SizedBox(height: 5.0),
+                      CustomTextFormField(
+                        controller: registerEmailControl,
+                        backgroundColor: const Color(0xfff2f2f2),
+                        roundedRectangleBorder: 10.0,
+                        textInputAction: TextInputAction.next,
+                        textHint: "Enter your Email",
+                        validator: (value) =>
+                            ValidarorsAuth.emailValidator(value!),
+                        prefix: const Icon(
+                          Icons.email,
+                          color: mainColor,
+                        ),
+                      ),
+                      const SizedBox(height: 5.0),
+                      CustomTextFormField(
+                        controller: registerPasswordControl,
+                        backgroundColor: const Color(0xfff2f2f2),
+                        roundedRectangleBorder: 10.0,
+                        textInputAction: TextInputAction.next,
+                        textHint: "Enter Your password",
+                        obscureText: passwordObscured,
+                        validator: (value) =>
+                            ValidarorsAuth.passwordValidator(value!),
+                        prefix: const Icon(
+                          Icons.lock,
+                          color: mainColor,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              passwordObscured = !passwordObscured;
+                            });
+                          },
+                          icon: Icon(passwordObscured
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                      ),
+                      const SizedBox(height: 5.0),
+                      CustomTextFormField(
+                        controller: registerConfirmPasswordControl,
+                        backgroundColor: const Color(0xfff2f2f2),
+                        roundedRectangleBorder: 10.0,
+                        textHint: ' Rewrite password',
+                        obscureText: confirmPassObscured,
+                        prefix: const Icon(
+                          Icons.lock,
+                          color: mainColor,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              confirmPassObscured = !confirmPassObscured;
+                            });
+                          },
+                          icon: Icon(confirmPassObscured
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                        validator: (value) => value!.isEmpty
+                            ? 'please confirm password'
+                            : (value != registerPasswordControl.text)
+                                ? 'Password does not match'
+                                : null,
+                      )
+                    ],
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                child: TextField(
-                  controller: retypePasswordController,
-                  obscureText: confirmPassObscured,
-                  decoration: InputDecoration(
-                    hintText: 'Retype Password',
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          confirmPassObscured = !confirmPassObscured;
-                        });
-                      },
-                      icon: Icon(confirmPassObscured
-                          ? Icons.visibility_off
-                          : Icons.visibility),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
-                    fillColor: Colors.white,
-                    filled: true,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: () async {
-                  var formValid = true;
-
-                  var fullName = fullNameController.text;
-                  var email = emailController.text;
-                  var password = passwordController.text;
-                  var retypePassword = retypePasswordController.text;
-
-                  if (fullName.isEmpty) {
+                  var fullName = registerNameControl.text.trim();
+                  var email = registerEmailControl.text.trim();
+                  var password = registerPasswordControl.text.trim();
+                  if (email.isEmpty && password.isEmpty || fullName.isEmpty) {
                     showToast(
-                        message: 'Please provide FullName',
+                        message: 'Please Fill All Requriements',
                         state: ToastStates.warning);
-
-                    formValid = false;
                   }
-
-                  if (email.isEmpty) {
-                    showToast(
-                        message: 'Please provide email',
-                        state: ToastStates.warning);
-                    formValid = false;
-                  }
-
-                  if (password.isEmpty) {
-                    showToast(
-                        message: 'Please provide Password',
-                        state: ToastStates.warning);
-                    formValid = false;
-                  }
-
-                  if (retypePassword.isEmpty) {
-                    showToast(
-                        message: 'Please provide Retype Password',
-                        state: ToastStates.warning);
-                    formValid = false;
-                  }
-
-                  if (password.length < 6) {
-                    showToast(
-                        message: 'Please provide at least 6 digits',
-                        state: ToastStates.warning);
-                    formValid = false;
-                  }
-
-                  if (password != retypePassword) {
-                    showToast(
-                        message: 'Passwords do not match',
-                        state: ToastStates.warning);
-
-                    formValid = false;
-                  }
-
-                  if (formValid == false) {
-                    return;
-                  }
-
                   ProgressDialog progressDialog = ProgressDialog(
                     context,
                     message: const Text("Signing Up"),
@@ -236,8 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         'uid': user.uid,
                         'name': fullName,
                         'email': email,
-                        'dt': DateTime.now().millisecondsSinceEpoch,
-                        'profileImage': '',
+                        'd': DateTime.now().millisecondsSinceEpoch,
                       });
                       showToast(
                           message: 'Sign Up Successful',
@@ -268,9 +219,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   margin: const EdgeInsets.symmetric(horizontal: 50.0),
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: mainColor,
                       border: Border.all(
-                          color: Colors.blue, // Set border color
+                          color: mainColor, // Set border color
                           width: 3.0), // Set border width
                       borderRadius: const BorderRadius.all(
                           Radius.circular(10.0)), // Set rounded corner radius

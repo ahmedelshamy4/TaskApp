@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:task_app/widgets/color.dart';
 
 import '../model/task_model.dart';
 import '../widgets/toast.dart';
@@ -34,7 +35,11 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         elevation: 0.0,
         actions: [
           TextButton.icon(
-            icon: const Icon(Icons.share),
+            icon: const Icon(
+              Icons.share,
+              size: 18.0,
+              color: white,
+            ),
             onPressed: () {
               Share.share(('https://taskappone.page.link/mVFa'));
             },
@@ -97,9 +102,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 margin: const EdgeInsets.symmetric(horizontal: 50.0),
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: mainColor,
                     border: Border.all(
-                        color: Colors.blue, // Set border color
+                        color: mainColor, // Set border color
                         width: 3.0), // Set border width
                     borderRadius: const BorderRadius.all(
                         Radius.circular(10.0)), // Set rounded corner radius

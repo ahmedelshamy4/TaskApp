@@ -3,7 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_app/screen/edit_task_screen.dart';
+import 'package:task_app/widgets/color.dart';
 
+import '../animation/animation.dart';
 import '../model/task_model.dart';
 import '../widgets/toast.dart';
 import 'add_task_screen.dart';
@@ -36,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: const Text('Tasks List'),
           centerTitle: true,
-          elevation: 0.0,
           actions: [
             IconButton(
               onPressed: () async {
@@ -52,7 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
+          backgroundColor: mainColor,
+          child: const Icon(
+            Icons.add,
+          ),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return const AddTaskScreen();
@@ -69,10 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snshot == null) {
                 return const Center(child: Text('No tasks yet'));
               }
-
-              Map<String, dynamic> map = Map<String, dynamic>.from(snshot);
-
               var tasks = <TaskModel>[];
+              Map<String, dynamic> map = Map<String, dynamic>.from(snshot);
 
               for (var taskMap in map.values) {
                 tasks
@@ -80,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
               }
 
               return ListView.builder(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.all(8.0),
+                  reverse: true,
+                  shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: tasks.length,
                   itemBuilder: (context, index) {
@@ -167,7 +171,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ToastStates.success);
                                                   Navigator.of(ctx).pop();
                                                 },
-                                                child: const Text('Yes'),
+                                                child: const Text(
+                                                  'Yes',
+                                                  style: TextStyle(
+                                                      color: mainColor),
+                                                ),
                                               ),
                                             ],
                                           );

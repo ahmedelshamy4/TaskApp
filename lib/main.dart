@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:task_app/screen/user_state.dart';
+import 'package:task_app/widgets/color.dart';
+import 'package:task_app/widgets/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,9 +16,7 @@ class NoteApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo App',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-      ),
+      theme: lightTheme,
       home: const UserState(),
     );
   }

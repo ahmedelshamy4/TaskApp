@@ -3,8 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:task_app/screen/auth/sign_up_screen.dart';
+import 'package:task_app/screen/auth/validaror_auth.dart';
 
 import '../../widgets/CurvedClipper.dart';
+import '../../widgets/color.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/toast.dart';
 import '../home_screen.dart';
 
@@ -17,8 +20,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool passwordObscured = true;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  bool confirmPassObscured = true;
+  final formKey = GlobalKey<FormState>();
+
+  final loginEmailControl = TextEditingController();
+  final loginPasswordControl = TextEditingController();
 
   Future<FirebaseApp> _initializeApp() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
@@ -58,52 +64,57 @@ class _LoginScreenState extends State<LoginScreen> {
                       letterSpacing: 2.0,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 20,
-                    ),
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
-                        prefixIcon: Icon(
-                          Icons.account_box,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 15.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 5.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                    ),
-                    child: TextField(
-                      controller: passwordController,
-                      obscureText: passwordObscured,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: const Icon(
-                          Icons.lock,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              passwordObscured = !passwordObscured;
-                            });
-                          },
-                          icon: Icon(
-                            passwordObscured
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                  Form(
+                    key: formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 5.0),
+                          CustomTextFormField(
+                            controller: loginEmailControl,
+                            backgroundColor: const Color(0xfff2f2f2),
+                            roundedRectangleBorder: 10.0,
+                            textInputAction: TextInputAction.next,
+                            textHint: "Enter your Email",
+                            validator: (value) =>
+                                ValidarorsAuth.emailValidator(value!),
+                            prefix: const Icon(
+                              Icons.email,
+                              color: mainColor,
+                            ),
                           ),
-                        ),
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 15.0),
-                        fillColor: Colors.white,
-                        filled: true,
+                          const SizedBox(height: 5.0),
+                          CustomTextFormField(
+                            controller: loginPasswordControl,
+                            backgroundColor: const Color(0xfff2f2f2),
+                            roundedRectangleBorder: 10.0,
+                            textInputAction: TextInputAction.next,
+                            textHint: "Your password",
+                            obscureText: passwordObscured,
+                            validator: (value) =>
+                                ValidarorsAuth.passwordValidator(value!),
+                            prefix: const Icon(
+                              Icons.lock,
+                              color: mainColor,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  passwordObscured = !passwordObscured;
+                                });
+                              },
+                              icon: Icon(passwordObscured
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                            ),
+                          ),
+                          const SizedBox(height: 5.0),
+                        ],
                       ),
                     ),
                   ),
@@ -112,31 +123,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      var email = emailController.text;
-                      var password = passwordController.text;
-                      var formValid = true;
-                      if (email.isEmpty) {
+                      var email = loginEmailControl.text.trim();
+                      var password = loginPasswordControl.text.trim();
+                      if (email.isEmpty && password.isEmpty) {
                         showToast(
-                            message: 'Please provide email',
+                            message: 'Please Enter Email and Password',
                             state: ToastStates.warning);
-                        formValid = false;
                       }
-
-                      if (password.isEmpty) {
-                        showToast(
-                            message: 'Please provide email',
-                            state: ToastStates.warning);
-                        formValid = false;
-                      }
-
-                      if (formValid == false) {
-                        return;
-                      }
-
                       ProgressDialog progressDialog = ProgressDialog(
                         context,
                         title: const Text('Signing In'),
-                        message: const Text('Please wait'),
+                        message: const Text('Please wait...'),
                       );
 
                       progressDialog.show();
@@ -176,9 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       margin: const EdgeInsets.symmetric(horizontal: 50.0),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
+                          color: mainColor,
                           border: Border.all(
-                              color: Colors.blue, // Set border color
+                              color: mainColor, // Set border color
                               width: 3.0), // Set border width
                           borderRadius: const BorderRadius.all(Radius.circular(
                               10.0)), // Set rounded corner radius
