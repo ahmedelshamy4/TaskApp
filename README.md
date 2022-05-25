@@ -16,3 +16,11 @@ https://user-images.githubusercontent.com/26741217/170120593-b9e15011-134d-48b2-
   
   
 </p>
+
+<p align="center">
+✨ App Features :
+  
+<p>.Native Splash screen.</p>
+<p>.Search bar for searching about any product.</p>
+<p>.Possibility to save favorite product.</p>
+</p>
