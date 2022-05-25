@@ -27,8 +27,10 @@ class UserState extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             if (snapshot.data == true) {
+              log('HomeScreen');
               return const HomeScreen();
             } else if (snapshot.data == false) {
+              log('LoginScreen');
               return const LoginScreen();
             } else {
               return const Center(
