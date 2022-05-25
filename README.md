@@ -20,7 +20,12 @@ https://user-images.githubusercontent.com/26741217/170120593-b9e15011-134d-48b2-
 <p align="center">
 ✨ App Features :
   
-<p>.Native Splash screen.</p>
-<p>.Search bar for searching about any product.</p>
-<p>.Possibility to save favorite product.</p>
+<p>.firebase_auth.</p>
+<p>.firebase_database.</p>
+<p>.firebase_core.</p>
+<p>.flutter_launcher_icons.</p>
+<p>.fluttertoast.</p>
+<p>.ndialog.</p>
+<p>.share.</p>
+
 </p>
