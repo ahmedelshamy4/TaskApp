@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ndialog/ndialog.dart';
-import 'package:task_app/screen/auth/validaror_auth.dart';
+import 'validaror_auth.dart';
 
 import '../../widgets/CurvedClipper.dart';
 import '../../widgets/color.dart';

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_app/screen/edit_task_screen.dart';
 import 'package:task_app/widgets/color.dart';
-
-import '../animation/animation.dart';
 import '../model/task_model.dart';
 import '../widgets/toast.dart';
 import 'add_task_screen.dart';

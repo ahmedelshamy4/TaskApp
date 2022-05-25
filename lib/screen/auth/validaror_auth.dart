@@ -1,4 +1,4 @@
-import 'package:task_app/widgets/toast.dart';
+import '../../widgets/toast.dart';
 
 class ValidarorsAuth {
   // * Email Validator
@@ -25,8 +25,9 @@ class ValidarorsAuth {
     if (value.isEmpty) {
       showToast(message: 'password is empty', state: ToastStates.warning);
     }
-    if (value.length < 7) {
-      showToast(message: 'password is less 7', state: ToastStates.warning);
+    RegExp regexp = RegExp(r"^.{6,}$");
+    if (!regexp.hasMatch(value)) {
+      return 'Password should contain at least 6 characters';
     }
   }
 }
