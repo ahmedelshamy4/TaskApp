@@ -18,7 +18,6 @@ https://user-images.githubusercontent.com/26741217/170120593-b9e15011-134d-48b2-
 
 <p align="center">
 ✨ App Features :
-  
 <p>.firebase_auth.</p>
 <p>.firebase_database.</p>
 <p>.firebase_core.</p>
@@ -26,5 +25,5 @@ https://user-images.githubusercontent.com/26741217/170120593-b9e15011-134d-48b2-
 <p>.fluttertoast.</p>
 <p>.ndialog.</p>
 <p>.share.</p>
-
+<p>.intl.</p>
 </p>
