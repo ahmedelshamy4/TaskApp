@@ -1,5 +1,5 @@
 # TaskApp
-A simple small notepad allowing creating and editing text Notes using realtimeFirebase DataBase .
+A simple small notepad allowing creating and editing text Notes using realTime Firebase Database Plugin for Flutter .
 
 <img src="screenshots/login.jpeg" width="20%"></img>
 <img src="screenshots/sign_up.jpeg" width="20%"></img>
