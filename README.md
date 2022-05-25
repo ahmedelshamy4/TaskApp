@@ -1,4 +1,4 @@
-# task_app
+# TaskApp
 A simple small notepad allowing creating and editing text Notes using realtimeFirebase DataBase .
 
 <img src="screenshots/login.jpeg" width="20%"></img>
