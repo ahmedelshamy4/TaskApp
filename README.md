@@ -8,7 +8,11 @@ A simple small notepad allowing creating and editing text Notes using realtimeFi
 <img src="screenshots/edit.jpeg" width="20%"></img>
 <img src="screenshots/delete.jpeg" width="20%"></img>
 
+
 <p align="center">
-✨ Plugins and Concepts :
+
+ 
 https://user-images.githubusercontent.com/26741217/170120593-b9e15011-134d-48b2-b0ae-3d9ae6083ac6.mp4
+  
+  
 </p>
