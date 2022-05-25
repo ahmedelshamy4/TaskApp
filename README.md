@@ -7,8 +7,7 @@ A simple small notepad allowing creating and editing text Notes using realtimeFi
 <img src="screenshots/add.jpeg" width="20%"></img>
 <img src="screenshots/edit.jpeg" width="20%"></img>
 <img src="screenshots/delete.jpeg" width="20%"></img>
-
-
+<img src="screenshots/database.jpeg" width="20%"></img>
 <p align="center">
 
  
