@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:task_app/widgets/navigate.dart';
 import 'edit_task_screen.dart';
 import '../widgets/color.dart';
 import '../model/task_model.dart';
@@ -41,10 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
 
-                Navigator.of(context)
-                    .pushReplacement(MaterialPageRoute(builder: (context) {
-                  return const LoginScreen();
-                }));
+                onNavigate(context, page: const LoginScreen());
               },
               icon: const Icon(Icons.logout),
             ),
@@ -56,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Icons.add,
           ),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return const AddTaskScreen();
-            }));
+            onNavigate(context, page: const AddTaskScreen());
           },
         ),
         body: StreamBuilder(
@@ -69,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               var snshot = event.snapshot.value;
 
               if (snshot == null) {
-                return const Center(child: Text('No tasks yet'));
+                const Center(child: Text('No notes available'));
               }
               var tasks = <TaskModel>[];
               Map<String, dynamic> map = Map<String, dynamic>.from(snshot);
@@ -79,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     .add(TaskModel.fromMap(Map<String, dynamic>.from(taskMap)));
               }
 
-              return ListView.builder(
+              return ListView.separated(
+                  separatorBuilder: (_, index) => const SizedBox(height: 10),
                   padding: const EdgeInsets.all(8.0),
                   reverse: true,
                   shrinkWrap: true,
@@ -97,12 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         right: 10.0,
                       ),
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
@@ -122,8 +114,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   taskModel.taskName,
                                   style: const TextStyle(
                                     fontSize: 15,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                   ),
+                                ),
+                                const Divider(
+                                  color: mainColor,
+                                  thickness: 2,
+                                  height: 10,
                                 ),
                                 Text(getHumanReadableDate(taskModel.dt)),
                               ],
@@ -184,10 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) {
-                                    return EditTaskScreen(taskModel: taskModel);
-                                  }));
+                                  onNavigate(context,
+                                      page:
+                                          EditTaskScreen(taskModel: taskModel));
                                 },
                                 icon: const Icon(Icons.edit),
                               ),

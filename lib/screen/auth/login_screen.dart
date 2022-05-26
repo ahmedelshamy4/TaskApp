@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:task_app/widgets/navigate.dart';
 import 'sign_up_screen.dart';
 import 'validaror_auth.dart';
 
@@ -150,10 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         User? user = userCredential.user;
 
                         if (user != null) {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const HomeScreen();
-                          }));
+                          onNavigate(context, page: const HomeScreen());
                         }
                       } on FirebaseAuthException catch (e) {
                         progressDialog.dismiss();
@@ -202,10 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: FractionalOffset.bottomCenter,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const SignUpScreen();
-                          }));
+                          onNavigate(context, page: const SignUpScreen());
                         },
                         child: Container(
                           height: 100,
@@ -228,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

@@ -10,10 +10,7 @@ import '../widgets/toast.dart';
 class EditTaskScreen extends StatefulWidget {
   final TaskModel taskModel;
 
-  const EditTaskScreen({
-    Key? key,
-    required this.taskModel,
-  }) : super(key: key);
+  const EditTaskScreen({Key? key, required this.taskModel}) : super(key: key);
 
   @override
   _EditTaskScreenState createState() => _EditTaskScreenState();
@@ -41,11 +38,14 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
               color: white,
             ),
             onPressed: () {
-              Share.share(('https://taskappone.page.link/mVFa'));
+              Share.share(
+                ('https://taskappone.page.link/mVFa'),
+              );
             },
             label: const Text(
               'Copy Link',
               style: TextStyle(
+                decoration: TextDecoration.underline,
                 color: Colors.white,
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,

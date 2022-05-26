@@ -8,8 +8,14 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: white,
   backgroundColor: white,
   appBarTheme: const AppBarTheme(
-    color: mainColor,
+    backgroundColor: mainColor,
     titleSpacing: 20.0,
+    centerTitle: true,
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+    ),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: black,
       statusBarBrightness: Brightness.dark,

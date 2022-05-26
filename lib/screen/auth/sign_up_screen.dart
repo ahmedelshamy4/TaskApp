@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:task_app/widgets/navigate.dart';
 import 'validaror_auth.dart';
 
 import '../../widgets/CurvedClipper.dart';
@@ -22,10 +23,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool passwordObscured = true;
   bool confirmPassObscured = true;
   final formKey = GlobalKey<FormState>();
-  final registerNameControl = TextEditingController();
-  final registerEmailControl = TextEditingController();
-  final registerPasswordControl = TextEditingController();
-  final registerConfirmPasswordControl = TextEditingController();
+  final signUpNameControl = TextEditingController();
+  final signUpEmailControl = TextEditingController();
+  final signUpPasswordControl = TextEditingController();
+  final signUpConfirmPasswordControl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       const SizedBox(height: 5.0),
                       CustomTextFormField(
-                        controller: registerNameControl,
+                        controller: signUpNameControl,
                         textInputAction: TextInputAction.next,
                         textHint: 'Enter your Name',
                         roundedRectangleBorder: 10.0,
@@ -78,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       const SizedBox(height: 5.0),
                       CustomTextFormField(
-                        controller: registerEmailControl,
+                        controller: signUpEmailControl,
                         backgroundColor: const Color(0xfff2f2f2),
                         roundedRectangleBorder: 10.0,
                         textInputAction: TextInputAction.next,
@@ -92,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       const SizedBox(height: 5.0),
                       CustomTextFormField(
-                        controller: registerPasswordControl,
+                        controller: signUpPasswordControl,
                         backgroundColor: const Color(0xfff2f2f2),
                         roundedRectangleBorder: 10.0,
                         textInputAction: TextInputAction.next,
@@ -117,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       const SizedBox(height: 5.0),
                       CustomTextFormField(
-                        controller: registerConfirmPasswordControl,
+                        controller: signUpConfirmPasswordControl,
                         backgroundColor: const Color(0xfff2f2f2),
                         roundedRectangleBorder: 10.0,
                         textHint: ' Rewrite password',
@@ -138,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         validator: (value) => value!.isEmpty
                             ? 'please confirm password'
-                            : (value != registerPasswordControl.text)
+                            : (value != signUpPasswordControl.text)
                                 ? 'Password does not match'
                                 : null,
                       )
@@ -149,9 +151,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () async {
-                  var fullName = registerNameControl.text.trim();
-                  var email = registerEmailControl.text.trim();
-                  var password = registerPasswordControl.text.trim();
+                  var fullName = signUpNameControl.text.trim();
+                  var email = signUpEmailControl.text.trim();
+                  var password = signUpPasswordControl.text.trim();
                   if (email.isEmpty && password.isEmpty || fullName.isEmpty) {
                     showToast(
                         message: 'Please Fill All Requriements',
@@ -191,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         'd': DateTime.now().millisecondsSinceEpoch,
                       });
                       showToast(
-                          message: 'Sign Up Successful',
+                          message: 'Sign Up Successful Go To Login',
                           state: ToastStates.success);
 
                       progressDialog.dismiss();
@@ -247,10 +249,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: FractionalOffset.bottomCenter,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const LoginScreen();
-                      }));
+                      onNavigate(context, page: const LoginScreen());
                     },
                     child: Container(
                       height: 100,
