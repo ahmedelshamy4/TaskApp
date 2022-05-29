@@ -20,8 +20,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Task'),
-        centerTitle: true,
-        elevation: 0.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
