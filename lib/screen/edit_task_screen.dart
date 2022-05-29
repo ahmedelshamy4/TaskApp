@@ -84,7 +84,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   // update take  in realtime database
                   var taskRef = FirebaseDatabase.instance
                       .reference()
-                      .child('tasks')
+                      .child(tasksCollection)
                       .child(user.uid);
 
                   await taskRef.child(widget.taskModel.nodeId).update(
