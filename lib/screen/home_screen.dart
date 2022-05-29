@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       taskRef =
-          FirebaseDatabase.instance.reference().child('tasks').child(user!.uid);
+          FirebaseDatabase.instance.reference().child(tasksCollection).child(user!.uid);
     }
     super.initState();
   }
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     // show alertdialog
 
                                     showDialog(
-                                        barrierDismissible: false,
+                                       
                                         context: context,
                                         builder: (ctx) {
                                           return AlertDialog(
