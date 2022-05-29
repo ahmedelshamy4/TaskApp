@@ -62,7 +62,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     databaseRef.child('tasks').child(user.uid).push().key;
                 try {
                   await databaseRef
-                      .child('tasks')
+                      .child(tasksCollection)
                       .child(user.uid)
                       .child(key)
                       .set({
