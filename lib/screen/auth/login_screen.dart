@@ -31,7 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
   }
-
+ @override
+  void dispose() {
+    super.dispose();
+    loginEmailControl.dispose();
+    loginPasswordControl.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
